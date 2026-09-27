@@ -29,7 +29,6 @@
         .day-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(139,0,0,0.12); border-color: var(--accent-color); }
         
         .day-card.today-active { border: 3px solid var(--accent-color); background: #fffefb; box-shadow: 0 10px 25px rgba(212,175,55,0.25); }
-        .day-card.special-step { border: 2px dashed var(--accent-color); background: #fffdf9; }
         
         .day-header { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 5px; }
         .day-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #f0e2d5; padding-bottom: 8px; color: #222; }
@@ -52,7 +51,8 @@
         <h2>„W Szkole Serca Jezusowego”</h2>
         <p class="description">
             33-dniowe przygotowanie do Wielkiego Zawierzenia Najświętszemu Sercu Jezusowego i przyjęcia Tarczy Serca Jezusowego. 
-            Treści rekolekcji oparte są na Litanii do Najświętszego Serca Pana Jezusa.
+            Treści rekolekcji oparte są na Litanii do Najświętszego Serca Pana Jezusa.<br>
+            <strong>Wspólna droga. 33 dni. 33 kroki. Coraz bliżej Serca Jezusa.</strong>
         </p>
         <button class="scroll-btn" onclick="scrollToToday()">❤️ Przejdź do dzisiejszego dnia</button>
     </header>
@@ -61,72 +61,56 @@
 
 <script>
     const grid = document.getElementById('rekolekcje-grid');
-    const audioExt = 'm4a'; // Zmień na 'mp4' jeśli takie masz rozszerzenie dźwięku
+    
+    // FORMATY PLIKÓW: Zmieniłem format zdjęć na 'jpg', bo tak masz je nazwane na GitHubie
+    const imgExt = 'jpg'; 
+    const audioExt = 'm4a'; // Jeśli część plików to mp4, to format m4a też odtworzy dźwięk, ale upewnij się, które rozszerzenie dominuje
 
-    // Automatyczne wykrywanie, który plik odpowiada dzisiejszemu dniowi
+    // Automatyczne dopasowanie dzisiejszej daty do numeru kroku (Start 30 sierpnia = Krok 1)
     function getTodayCardId() {
         const now = new Date();
         const month = now.getMonth() + 1; 
         const day = now.getDate();
 
-        if (month === 8 && day === 30) return 'card-file-1';
-        if (month === 8 && day === 31) return 'card-file-2';
-        if (month === 9) return `card-file-${day + 2}`; // Np. 1 wrz = plik 3, 28 wrz = plik 30
-        if (month === 10 && day === 1) return 'card-file-33';
+        if (month === 8 && day === 30) return 'card-step-1';
+        if (month === 8 && day === 31) return 'card-step-2';
+        if (month === 9) return `card-step-${day + 2}`; // Np. 1 września = Krok 3, 28 września = Krok 30
+        if (month === 10 && day === 1) return 'card-step-33';
         
         return null;
     }
 
     const todayId = getTodayCardId();
 
-    // 1. ROZPOCZĘCIE (Plik 1.jpeg / 1.m4a)
-    createCard({
-        id: 'card-file-1',
-        isSpecial: true,
-        header: "Wprowadzenie",
-        title: "Rozpoczęcie rekolekcji",
-        date: "30 sierpnia",
-        fileNum: 1
-    });
-
-    // 2. DNI REKOLEKCJI (Pliki od 2 do 32)
-    function getDateStr(fileIndex) {
-        if (fileIndex === 2) return "31 sierpnia";
-        return `${fileIndex - 2} września`;
+    // Funkcja generująca daty dla każdego z 33 kroków
+    function getDateForStep(step) {
+        if (step === 1) return "30 sierpnia";
+        if (step === 2) return "31 sierpnia";
+        if (step === 33) return "1 października";
+        return `${step - 2} września`; // Kroki 3-32 to dni od 1 do 30 września
     }
 
-    for (let f = 2; f <= 32; f++) {
-        const stepNumber = f - 1; // Krok 1 to plik 2, krok 2 to plik 3 itd.
+    // Generujemy czystą strukturę 33 kroków
+    for (let i = 1; i <= 33; i++) {
         createCard({
-            id: `card-file-${f}`,
-            isSpecial: false,
-            header: `Krok ${stepNumber} z 31`,
-            title: `Dzień Rekolekcji ${stepNumber}`,
-            date: getDateStr(f),
-            fileNum: f
+            id: `card-step-${i}`,
+            header: `Krok ${i} z 33`,
+            title: `Dzień Rekolekcji ${i}`,
+            date: getDateForStep(i),
+            fileNum: i
         });
     }
-
-    // 3. FINAŁ (Plik 33.jpeg / 33.m4a)
-    createCard({
-        id: 'card-file-33',
-        isSpecial: true,
-        header: "Uwieńczenie drogi",
-        title: "Wielkie Zawierzenie",
-        date: "1 października",
-        fileNum: 33
-    });
 
     function createCard(data) {
         const card = document.createElement('div');
         card.id = data.id;
-        card.className = data.isSpecial ? 'day-card special-step' : 'day-card';
+        card.className = 'day-card';
         
         if (data.id === todayId) {
             card.classList.add('today-active');
         }
 
-        const imgSrc = `${data.fileNum}.jpeg`;
+        const imgSrc = `${data.fileNum}.${imgExt}`;
         const audioSrc = `${data.fileNum}.${audioExt}`;
 
         card.innerHTML = `
