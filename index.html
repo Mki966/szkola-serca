@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>II Edycja Rekolekcji - W Szkole Serca Jezusowego</title>
+    <style>
+        :root {
+            --primary-color: #8b0000; 
+            --accent-color: #d4af37;  
+            --bg-color: #faf6f0;      
+            --card-bg: #ffffff;
+            --text-color: #3a2e2b;
+        }
+        
+        body { font-family: 'Georgia', serif; background: var(--bg-color); padding: 20px; margin: 0; color: var(--text-color); line-height: 1.6; scroll-behavior: smooth; }
+        
+        header { text-align: center; max-width: 800px; margin: 0 auto 40px auto; padding: 20px; border-bottom: 2px solid var(--accent-color); }
+        header h1 { color: var(--primary-color); font-size: 2.2rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        header h2 { color: var(--text-color); font-size: 1.5rem; font-style: italic; margin-top: 0; }
+        .description { font-size: 1.1rem; max-width: 650px; margin: 15px auto 20px auto; color: #555; }
+        
+        /* Styl przycisku przewijania */
+        .scroll-btn { display: inline-block; background: var(--accent-color); color: #000; padding: 12px 24px; text-decoration: none; border-radius: 30px; font-weight: bold; font-family: Arial, sans-serif; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(212,175,55,0.3); transition: transform 0.2s, background 0.2s; cursor: pointer; border: none; }
+        .scroll-btn:hover { background: #c29d2c; transform: scale(1.03); }
+        
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; }
+        
+        .day-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(139,0,0,0.06); display: flex; flex-direction: column; padding: 20px; border: 1px solid #ebdcd0; transition: transform 0.3s, box-shadow 0.3s; }
+        .day-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(139,0,0,0.12); border-color: var(--accent-color); }
+        
+        /* Wyróżnienie dzisiejszego dnia */
+        .day-card.today-active { border: 3px solid var(--accent-color); background: #fffefb; box-shadow: 0 10px 25px rgba(212,175,55,0.25); }
+        .day-card.special-step { border: 2px dashed var(--accent-color); background: #fffdf9; }
+        
+        .day-header { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 5px; }
+        .day-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #f0e2d5; padding-bottom: 8px; color: #222; }
+        .day-date { float: right; font-size: 0.85rem; color: #888; font-weight: normal; margin-top: 4px; }
+        
+        .day-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; background: #eee; }
+        .day-card audio { width: 100%; margin-bottom: 15px; }
+        
+        .download-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
+        .btn { text-align: center; display: inline-block; background: var(--primary-color); color: white; padding: 10px 5px; text-decoration: none; border-radius: 6px; font-size: 0.85rem; font-weight: bold; transition: background 0.2s; border: 1px solid transparent; }
+        .btn:hover { background: #650000; }
+        .btn.btn-image { background: transparent; color: var(--primary-color); border: 1px solid var(--primary-color); }
+        .btn.btn-image:hover { background: #fff5f5; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>II Edycja Rekolekcji</h1>
+        <h2>„W Szkole Serca Jezusowego”</h2>
+        <p class="description">
+            33-dniowe przygotowanie do Wielkiego Zawierzenia Najświętszemu Sercu Jezusowego i przyjęcia Tarczy Serca Jezusowego. 
+            Treści rekolekcji oparte są na Litanii do Najświętszego Serca Pana Jezusa.
+        </p>
+        <!-- Przycisk automatycznego przewijania -->
+        <button class="scroll-btn" onclick="scrollToToday()">❤️ Przejdź do dzisiejszego dnia</button>
+    </header>
+    
+    <div class="grid-container" id="rekolekcje-grid"></div>
+
+<script>
+    const grid = document.getElementById('rekolekcje-grid');
+    const audioExt = 'm4a'; // Zmień na 'mp4' jeśli takie masz rozszerzenie dźwięku
+
+    // Funkcja określająca, który ID elementu odpowiada dzisiejszej dacie
+    function getTodayCardId() {
+        const now = new Date();
+        const month = now.getMonth() + 1; // Styczeń to 0
+        const day = now.getDate();
+
+        if (month === 8 && day === 30) return 'card-start';
+        if (month === 10 && day === 2) return 'card-final';
+        
+        // Wyliczanie dni rekolekcji 1-33
+        if (month === 8 && day === 31) return 'card-day-1';
+        if (month === 9) return `card-day-${day + 1}`; // we wrześniu: 1 wrz = dzień 2, itd.
+        if (month === 10 && day === 1) return 'card-day-33';
+        
+        return null;
+    }
+
+    const todayId = getTodayCardId();
+
+    // 1. ROZPOCZĘCIE
+    createCard({
+        id: 'card-start',
+        isSpecial: true,
+        header: "Wprowadzenie",
+        title: "Rozpoczęcie rekolekcji",
+        date: "30 sierpnia",
+        img: "start.jpeg",
+        audio: `start.${audioExt}`
+    });
+
+    // 2. 33 DNI REKOLEKCJI
+    function getDateStr(step) {
+        if (step === 1) return "31 sierpnia";
+        return `${step - 1} września`;
+    }
+
+    for (let i = 1; i <= 33; i++) {
+        const dateDisplay = (i === 33) ? "1 października" : getDateStr(i);
+        createCard({
+            id: `card-day-${i}`,
+            isSpecial: false,
+            header: `Krok ${i} z 33`,
+            title: `Dzień Rekolekcji ${i}`,
+            date: dateDisplay,
+            img: `${i}.jpeg`,
+            audio: `${i}.${audioExt}`
+        });
+    }
+
+    // 3. FINAŁ
+    createCard({
+        id: 'card-final',
+        isSpecial: true,
+        header: "Uwieńczenie drogi",
+        title: "Wielkie Zawierzenie",
+        date: "2 października",
+        img: "final.jpeg",
+        audio: `final.${audioExt}`
+    });
+
+    function createCard(data) {
+        const card = document.createElement('div');
+        card.id = data.id;
+        card.className = data.isSpecial ? 'day-card special-step' : 'day-card';
+        
+        if (data.id === todayId) {
+            card.classList.add('today-active');
+            card.getElementsByClassName;
+        }
+
+        card.innerHTML = `
+            <div class="day-header">
+                ${data.header} ${data.id === todayId ? '<strong>(Dzisiaj)</strong>' : ''}
+                <span class="day-date">${data.date}</span>
+            </div>
+            <div class="day-title">${data.title}</div>
+            <img src="${data.img}" alt="${data.title}" loading="lazy">
+            <audio controls preload="none">
+                <source src="${data.audio}" type="audio/mp4">
+            </audio>
+            <div class="download-buttons">
+                <a class="btn btn-image" href="${data.img}" download="${data.title}">Obraz</a>
+                <a class="btn" href="${data.audio}" download="${data.title}">Dźwięk</a>
+            </div>
+        `;
+        grid.appendChild(card);
+    }
+
+    // Funkcja przewijania po kliknięciu przycisku
+    function scrollToToday() {
+        if (todayId) {
+            const element = document.getElementById(todayId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        } else {
+            alert("Rekolekcje ruszają 30 sierpnia i kończą się 2 października. Dzisiaj nie ma zaplanowanych kroków.");
+        }
+    }
+</script>
+
+</body>
+</html>
