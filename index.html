@@ -20,7 +20,6 @@
         header h2 { color: var(--text-color); font-size: 1.5rem; font-style: italic; margin-top: 0; }
         .description { font-size: 1.1rem; max-width: 650px; margin: 15px auto 20px auto; color: #555; }
         
-        /* Styl przycisku przewijania */
         .scroll-btn { display: inline-block; background: var(--accent-color); color: #000; padding: 12px 24px; text-decoration: none; border-radius: 30px; font-weight: bold; font-family: Arial, sans-serif; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(212,175,55,0.3); transition: transform 0.2s, background 0.2s; cursor: pointer; border: none; }
         .scroll-btn:hover { background: #c29d2c; transform: scale(1.03); }
         
@@ -29,7 +28,6 @@
         .day-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(139,0,0,0.06); display: flex; flex-direction: column; padding: 20px; border: 1px solid #ebdcd0; transition: transform 0.3s, box-shadow 0.3s; }
         .day-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(139,0,0,0.12); border-color: var(--accent-color); }
         
-        /* Wyróżnienie dzisiejszego dnia */
         .day-card.today-active { border: 3px solid var(--accent-color); background: #fffefb; box-shadow: 0 10px 25px rgba(212,175,55,0.25); }
         .day-card.special-step { border: 2px dashed var(--accent-color); background: #fffdf9; }
         
@@ -56,7 +54,6 @@
             33-dniowe przygotowanie do Wielkiego Zawierzenia Najświętszemu Sercu Jezusowego i przyjęcia Tarczy Serca Jezusowego. 
             Treści rekolekcji oparte są na Litanii do Najświętszego Serca Pana Jezusa.
         </p>
-        <!-- Przycisk automatycznego przewijania -->
         <button class="scroll-btn" onclick="scrollToToday()">❤️ Przejdź do dzisiejszego dnia</button>
     </header>
     
@@ -66,64 +63,58 @@
     const grid = document.getElementById('rekolekcje-grid');
     const audioExt = 'm4a'; // Zmień na 'mp4' jeśli takie masz rozszerzenie dźwięku
 
-    // Funkcja określająca, który ID elementu odpowiada dzisiejszej dacie
+    // Automatyczne wykrywanie, który plik odpowiada dzisiejszemu dniowi
     function getTodayCardId() {
         const now = new Date();
-        const month = now.getMonth() + 1; // Styczeń to 0
+        const month = now.getMonth() + 1; 
         const day = now.getDate();
 
-        if (month === 8 && day === 30) return 'card-start';
-        if (month === 10 && day === 2) return 'card-final';
-        
-        // Wyliczanie dni rekolekcji 1-33
-        if (month === 8 && day === 31) return 'card-day-1';
-        if (month === 9) return `card-day-${day + 1}`; // we wrześniu: 1 wrz = dzień 2, itd.
-        if (month === 10 && day === 1) return 'card-day-33';
+        if (month === 8 && day === 30) return 'card-file-1';
+        if (month === 8 && day === 31) return 'card-file-2';
+        if (month === 9) return `card-file-${day + 2}`; // Np. 1 wrz = plik 3, 28 wrz = plik 30
+        if (month === 10 && day === 1) return 'card-file-33';
         
         return null;
     }
 
     const todayId = getTodayCardId();
 
-    // 1. ROZPOCZĘCIE
+    // 1. ROZPOCZĘCIE (Plik 1.jpeg / 1.m4a)
     createCard({
-        id: 'card-start',
+        id: 'card-file-1',
         isSpecial: true,
         header: "Wprowadzenie",
         title: "Rozpoczęcie rekolekcji",
         date: "30 sierpnia",
-        img: "start.jpeg",
-        audio: `start.${audioExt}`
+        fileNum: 1
     });
 
-    // 2. 33 DNI REKOLEKCJI
-    function getDateStr(step) {
-        if (step === 1) return "31 sierpnia";
-        return `${step - 1} września`;
+    // 2. DNI REKOLEKCJI (Pliki od 2 do 32)
+    function getDateStr(fileIndex) {
+        if (fileIndex === 2) return "31 sierpnia";
+        return `${fileIndex - 2} września`;
     }
 
-    for (let i = 1; i <= 33; i++) {
-        const dateDisplay = (i === 33) ? "1 października" : getDateStr(i);
+    for (let f = 2; f <= 32; f++) {
+        const stepNumber = f - 1; // Krok 1 to plik 2, krok 2 to plik 3 itd.
         createCard({
-            id: `card-day-${i}`,
+            id: `card-file-${f}`,
             isSpecial: false,
-            header: `Krok ${i} z 33`,
-            title: `Dzień Rekolekcji ${i}`,
-            date: dateDisplay,
-            img: `${i}.jpeg`,
-            audio: `${i}.${audioExt}`
+            header: `Krok ${stepNumber} z 31`,
+            title: `Dzień Rekolekcji ${stepNumber}`,
+            date: getDateStr(f),
+            fileNum: f
         });
     }
 
-    // 3. FINAŁ
+    // 3. FINAŁ (Plik 33.jpeg / 33.m4a)
     createCard({
-        id: 'card-final',
+        id: 'card-file-33',
         isSpecial: true,
         header: "Uwieńczenie drogi",
         title: "Wielkie Zawierzenie",
-        date: "2 października",
-        img: "final.jpeg",
-        audio: `final.${audioExt}`
+        date: "1 października",
+        fileNum: 33
     });
 
     function createCard(data) {
@@ -133,8 +124,10 @@
         
         if (data.id === todayId) {
             card.classList.add('today-active');
-            card.getElementsByClassName;
         }
+
+        const imgSrc = `${data.fileNum}.jpeg`;
+        const audioSrc = `${data.fileNum}.${audioExt}`;
 
         card.innerHTML = `
             <div class="day-header">
@@ -142,19 +135,18 @@
                 <span class="day-date">${data.date}</span>
             </div>
             <div class="day-title">${data.title}</div>
-            <img src="${data.img}" alt="${data.title}" loading="lazy">
+            <img src="${imgSrc}" alt="${data.title}" loading="lazy">
             <audio controls preload="none">
-                <source src="${data.audio}" type="audio/mp4">
+                <source src="${audioSrc}" type="audio/mp4">
             </audio>
             <div class="download-buttons">
-                <a class="btn btn-image" href="${data.img}" download="${data.title}">Obraz</a>
-                <a class="btn" href="${data.audio}" download="${data.title}">Dźwięk</a>
+                <a class="btn btn-image" href="${imgSrc}" download="${data.title}">Obraz</a>
+                <a class="btn" href="${audioSrc}" download="${data.title}">Dźwięk</a>
             </div>
         `;
         grid.appendChild(card);
     }
 
-    // Funkcja przewijania po kliknięciu przycisku
     function scrollToToday() {
         if (todayId) {
             const element = document.getElementById(todayId);
@@ -162,7 +154,7 @@
                 element.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         } else {
-            alert("Rekolekcje ruszają 30 sierpnia i kończą się 2 października. Dzisiaj nie ma zaplanowanych kroków.");
+            alert("Dzisiaj poza harmonogramem rekolekcji (30 sierpnia - 1 października).");
         }
     }
 </script>
