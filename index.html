@@ -62,6 +62,7 @@
 <script>
     const grid = document.getElementById('rekolekcje-grid');
 
+    // Funkcja dopasowująca dzisiejszy dzień do odpowiedniego kafelka (Start 30 sierpnia = Krok 1)
     function getTodayCardId() {
         const now = new Date();
         const month = now.getMonth() + 1; 
@@ -69,7 +70,7 @@
 
         if (month === 8 && day === 30) return 'card-step-1';
         if (month === 8 && day === 31) return 'card-step-2';
-        if (month === 9) return `card-step-${day + 2}`; 
+        if (month === 9) return `card-step-${day + 2}`; // Np. 28 września = Krok 30
         if (month === 10 && day === 1) return 'card-step-33';
         
         return null;
@@ -84,7 +85,7 @@
         return `${step - 2} września`; 
     }
 
-    // Generowanie 33 dni rekolekcji
+    // Generujemy 33 pełne kroki
     for (let i = 1; i <= 33; i++) {
         createCard({
             id: `card-step-${i}`,
@@ -104,8 +105,8 @@
             card.classList.add('today-active');
         }
 
-        // Strona szuka teraz pliku z małym rozszerzeniem .jpg
-        const imgSrc = `${data.fileNum}.jpg`;
+        // Adresy plików - wymuszamy małe litery rozszerzeń
+        const imgSrc = `${data.fileNum}.jpeg`;
 
         card.innerHTML = `
             <div class="day-header">
@@ -116,16 +117,17 @@
             
             <img src="${imgSrc}" alt="${data.title}" loading="lazy">
             
-            <!-- Obsługa odtwarzacza: podajemy m4a oraz mp4 jako alternatywę -->
+            <!-- Odtwarzacz wspierający m4a oraz mp4 i rozwiązujący problem blokowania dźwięku -->
             <audio controls preload="none">
                 <source src="${data.fileNum}.m4a" type="audio/mp4">
                 <source src="${data.fileNum}.mp4" type="audio/mp4">
-                <source src="${data.fileNum}.mp3" type="audio/mpeg">
+                Twoja przeglądarka nie wspiera odtwarzacza.
             </audio>
             
             <div class="download-buttons">
-                <a class="btn btn-image" href="${imgSrc}" download="${data.title}">Obraz</a>
-                <a class="btn" href="${data.fileNum}.m4a" download="${data.title}">Dźwięk</a>
+                <a class="btn btn-image" href="${imgSrc}" download="${data.title}.jpeg">Obraz</a>
+                <!-- Link domyślnie kieruje do m4a, jeśli używasz mp4 przeglądarka i tak sobie poradzi -->
+                <a class="btn" href="${data.fileNum}.m4a" download="${data.title}.m4a">Dźwięk</a>
             </div>
         `;
         grid.appendChild(card);
