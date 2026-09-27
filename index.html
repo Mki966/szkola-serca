@@ -62,7 +62,7 @@
 <script>
     const grid = document.getElementById('rekolekcje-grid');
 
-    // Funkcja dopasowująca dzisiejszy dzień do odpowiedniego kafelka (Start 30 sierpnia = Krok 1)
+    // Funkcja precyzyjnie wyliczająca Krok na podstawie dzisiejszej daty
     function getTodayCardId() {
         const now = new Date();
         const month = now.getMonth() + 1; 
@@ -70,7 +70,7 @@
 
         if (month === 8 && day === 30) return 'card-step-1';
         if (month === 8 && day === 31) return 'card-step-2';
-        if (month === 9) return `card-step-${day + 2}`; // Np. 28 września = Krok 30
+        if (month === 9) return `card-step-${day + 2}`; // 28 września = Krok 30
         if (month === 10 && day === 1) return 'card-step-33';
         
         return null;
@@ -85,7 +85,7 @@
         return `${step - 2} września`; 
     }
 
-    // Generujemy 33 pełne kroki
+    // Generowanie kafelków
     for (let i = 1; i <= 33; i++) {
         createCard({
             id: `card-step-${i}`,
@@ -105,7 +105,6 @@
             card.classList.add('today-active');
         }
 
-        // Adresy plików - wymuszamy małe litery rozszerzeń
         const imgSrc = `${data.fileNum}.jpeg`;
 
         card.innerHTML = `
@@ -117,20 +116,33 @@
             
             <img src="${imgSrc}" alt="${data.title}" loading="lazy">
             
-            <!-- Odtwarzacz wspierający m4a oraz mp4 i rozwiązujący problem blokowania dźwięku -->
+            <!-- Ulepszony odtwarzacz: obsługuje natywne audio oraz kontenery wideo z WhatsApp -->
             <audio controls preload="none">
                 <source src="${data.fileNum}.m4a" type="audio/mp4">
+                <source src="${data.fileNum}.mp4" type="video/mp4">
                 <source src="${data.fileNum}.mp4" type="audio/mp4">
                 Twoja przeglądarka nie wspiera odtwarzacza.
             </audio>
             
             <div class="download-buttons">
                 <a class="btn btn-image" href="${imgSrc}" download="${data.title}.jpeg">Obraz</a>
-                <!-- Link domyślnie kieruje do m4a, jeśli używasz mp4 przeglądarka i tak sobie poradzi -->
-                <a class="btn" href="${data.fileNum}.m4a" download="${data.title}.m4a">Dźwięk</a>
+                <!-- Przycisk pobierania spróbuje pobrać m4a, a jeśli nie znajdzie, pobierze mp4 -->
+                <a class="btn" href="${data.fileNum}.m4a" download="${data.title}.m4a" id="audio-dl-${data.fileNum}">Dźwięk</a>
             </div>
         `;
         grid.appendChild(card);
+        
+        // Dynamiczna korekta linku pobierania: jeśli plik na serwerze to .mp4, przycisk pobierania też się przestawi
+        const audioTag = card.querySelector('audio');
+        const dlBtn = card.querySelector(`#audio-dl-${data.fileNum}`);
+        
+        audioTag.addEventListener('error', function(e) {
+            // Jeśli .m4a zgłosi błąd, po cichu zmieniamy link pobierania na .mp4
+            if(dlBtn.href.endsWith('.m4a')) {
+                dlBtn.href = `${data.fileNum}.mp4`;
+                dlBtn.download = `${data.title}.mp4`;
+            }
+        }, true);
     }
 
     function scrollToToday() {
