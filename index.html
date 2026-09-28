@@ -35,10 +35,6 @@
         .day-date { float: right; font-size: 0.85rem; color: #888; font-weight: normal; margin-top: 4px; }
         
         .day-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; background: #eee; }
-        
-        /* Styl dla tekstu rozważania - automatyczny suwak przy bardzo długiej treści */
-        .day-text { font-size: 0.95rem; font-style: normal; color: #4a3b32; background: #fdfbf7; padding: 12px; border-left: 3px solid var(--accent-color); margin-bottom: 15px; border-radius: 0 6px 6px 0; text-align: justify; max-height: 200px; overflow-y: auto; white-space: pre-line; }
-        
         .day-card audio { width: 100%; margin-bottom: 15px; }
         
         .download-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
@@ -65,376 +61,6 @@
 
 <script>
     const grid = document.getElementById('rekolekcje-grid');
-
-    // =================================================================
-    // TUTAJ WPISZ SWOJE TEKSTY DLA KAŻDEGO DNIA POMIĘDZY CUDZYSŁOWAMI ""
-    // =================================================================
-    const tekstyRozwazan = {
-        1: "Tutaj wpisz tekst rozważania na dzień 1...",
-        2: "Tutaj wpisz tekst rozważania na dzień 2...",
-        3: "Tutaj wpisz tekst rozważania na dzień 3...",
-        4: "Tutaj wpisz tekst rozważania na dzień 4...",
-        5: "Tutaj wpisz tekst rozważania na dzień 5...",
-        6: "Tutaj wpisz tekst rozważania na dzień 6...",
-        7: "Tutaj wpisz tekst rozważania na dzień 7...",
-        8: "Tutaj wpisz tekst rozważania na dzień 8...",
-        9: "Tutaj wpisz tekst rozważania na dzień 9...",
-        10: "Tutaj wpisz tekst rozważania na dzień 10...",
-        11: "Tutaj wpisz tekst rozważania na dzień 11...",
-        12: "Tutaj wpisz tekst rozważania na dzień 12...",
-        13: "Tutaj wpisz tekst rozważania na dzień 13...",
-        14: "Tutaj wpisz tekst rozważania na dzień 14...",
-        15: "Tutaj wpisz tekst rozważania na dzień 15...",
-        16: "Tutaj wpisz tekst rozważania na dzień 16...",
-        17: "Tutaj wpisz tekst rozważania na dzień 17...",
-        18: "Tutaj wpisz tekst rozważania na dzień 18...",
-        19: "Tutaj wpisz tekst rozważania na dzień 19...",
-        20: "Tutaj wpisz tekst rozważania na dzień 20...",
-        21: "Tutaj wpisz tekst rozważania na dzień 21...",
-        22: "Tutaj wpisz tekst rozważania na dzień 22...",
-        23: "Tutaj wpisz tekst rozważania na dzień 23...",
-        24: "Tutaj wpisz tekst rozważania na dzień 24...",
-        25: "Tutaj wpisz tekst rozważania na dzień 25...",
-        26: "Tutaj wpisz tekst rozważania na dzień 26...",
-        27: "Tutaj wpisz tekst rozważania na dzień 27...",
-        28: "Tutaj wpisz tekst rozważania na dzień 28...",
-        29: "Tutaj wpisz tekst rozważania na dzień 29...",
-        30: "Tutaj wpisz tekst rozważania na dzień 30...",
-        31: "Tutaj wpisz tekst rozważania na dzień 31...",
-        32: "Tutaj wpisz tekst rozważania na dzień 32...",
-        33: "DZIEŃ 33
-❤️ Dar dnia
-W Sercu Jezusa czeka na mnie pełnia radości
-Wezwanie Litanii
-Serce Jezusa, rozkoszy wszystkich Świętych,
-📖 Słowo Boże
-„Ukażesz mi ścieżkę życia, pełnię radości u Ciebie, rozkosze na wieki po Twojej prawicy.”
-(Ps 16,11)
-
-🕊 Rozważanie
-Przez trzydzieści trzy dni zbliżaliśmy się do Serca Jezusa.
-
-Odkrywaliśmy Jego miłość.
-
-Wchodziliśmy w Jego tajemnicę.
-
-Przynosiliśmy Mu nasze pragnienia, grzechy, zranienia, lęki i relacje.
-
-Uczyliśmy się, że Jego Serce jest domem.
-
-Źródłem.
-
-Pociechą.
-
-Przebaczeniem.
-
-Pokojem.
-
-Nadzieją.
-
-Dzisiaj dochodzimy do ostatniego wezwania Litanii:
-
-„Serce Jezusa, rozkoszy wszystkich Świętych.”
-
-Słowo „rozkosz” może wydawać się bardzo odważne.
-
-Mówi o głębokiej radości.
-
-O zachwycie.
-
-O szczęściu, które napełnia całego człowieka.
-
-Litania przypomina nam, że dla świętych największą radością nie było posiadanie wielu rzeczy, odnoszenie sukcesów ani zdobycie uznania ludzi.
-
-Ich największym szczęściem był Jezus.
-
-Święci nie byli ludźmi, którzy przestali pragnąć.
-
-Ich pragnienia zostały skierowane ku Temu, który jako jedyny potrafi naprawdę nasycić ludzkie serce.
-
-Jedni spotykali Jezusa w długiej modlitwie.
-
-Inni w służbie ubogim.
-
-Jedni oddali Mu życie w męczeństwie.
-
-Inni pozostawali Mu wierni w zwyczajnych obowiązkach, o których nikt nie wiedział.
-
-Byli wśród nich kapłani, małżonkowie, rodzice, zakonnicy, dzieci, ludzie uczeni i bardzo prości.
-
-Każdy miał inną historię.
-
-Wszystkich połączyło jedno:
-
-odkryli, że Serce Jezusa jest warte więcej niż wszystko, co świat może ofiarować.
-
-Święci nie zawsze odczuwali radość.
-
-Przechodzili przez ciemność.
-
-Zmagali się z pokusami.
-
-Doświadczali samotności, chorób, niezrozumienia i cierpienia.
-
-Niektórzy przez długi czas nie odczuwali obecności Boga.
-
-A jednak pozostawali wierni.
-
-Ich radość nie opierała się wyłącznie na emocjach.
-
-Wypływała z pewności, że należą do Jezusa.
-
-To bardzo ważne.
-
-Radość chrześcijańska nie oznacza nieustannego uśmiechu.
-
-Nie jest udawaniem, że nie ma bólu.
-
-Nie polega na ignorowaniu trudnej rzeczywistości.
-
-Jest głębokim przekonaniem, że nawet pośród cierpienia moje życie znajduje się w Sercu Boga.
-
-Mogę płakać i nadal mieć nadzieję.
-
-Mogę nie rozumieć i nadal ufać.
-
-Mogę przegrywać w oczach świata, a jednocześnie pozostawać blisko Jezusa.
-
-Święci odkryli, że największym nieszczęściem nie jest cierpienie.
-
-Największym nieszczęściem jest życie daleko od Boga.
-
-I odwrotnie — największym szczęściem nie jest brak trudności.
-
-Największym szczęściem jest jedność z Jezusem.
-
-Dlatego Serce Jezusa jest ich rozkoszą.
-
-W niebie święci nie tylko wiedzą, że Bóg istnieje.
-
-Oglądają Go twarzą w twarz.
-
-Nie tęsknią już za Nim poprzez znaki.
-
-Nie szukają Go pośród ciemności.
-
-Nie zmagają się z grzechem.
-
-Nie boją się, że Go utracą.
-
-Ich serca zostały całkowicie napełnione Jego obecnością.
-
-To jest również Twoje przeznaczenie.
-
-Nie zostałeś stworzony jedynie po to, aby przeżyć kilkadziesiąt lat, wykonać swoje obowiązki, zdobyć kilka rzeczy, a potem odejść.
-
-Zostałeś stworzony dla Boga.
-
-Dla życia, które nie będzie miało końca.
-
-Dla radości, której nic już nie odbierze.
-
-Dla spotkania, w którym wszystkie tęsknoty odnajdą swoje spełnienie.
-
-Zawierzenie Sercu Jezusa nie jest więc jedynie sposobem na łatwiejsze przeżywanie codzienności.
-
-Jest wyborem drogi prowadzącej do wieczności.
-
-Mówisz Jezusowi:
-
-„Chcę należeć do Ciebie teraz, abym mógł należeć do Ciebie na zawsze.”
-
-Przez trzydzieści trzy dni nie przygotowywałeś jedynie słów aktu zawierzenia.
-
-Przygotowywałeś swoje serce.
-
-Jezus pozwalał Ci zobaczyć to, co w Tobie piękne, i to, co potrzebuje uzdrowienia.
-
-Dotykał miejsc pełnych nadziei i tych, które nadal bolą.
-
-Nie musisz kończyć tej drogi jako człowiek doskonały.
-
-Wystarczy, że kończysz ją jako człowiek bardziej otwarty.
-
-Gotowy powiedzieć:
-
-„Jezu, przyjmij mnie takim, jakim jestem, i prowadź mnie dalej.”
-
-Wielkie Zawierzenie nie będzie zakończeniem relacji z Sercem Jezusa.
-
-Będzie jej nowym początkiem.
-
-Nie kończysz drogi.
-
-Wchodzisz głębiej.
-
-Od tej chwili każde Twoje „tak”, każdy powrót po upadku, każda modlitwa i każdy gest miłości mogą być przeżywane w świadomości:
-
-„Należę do Serca Jezusa.”
-
-Być może nie zawsze będziesz odczuwał tę bliskość.
-
-Przyjdą dni suche.
-
-Dni trudne.
-
-Chwile rozczarowania sobą.
-
-Może nawet momenty, w których będziesz chciał wszystko porzucić.
-
-Wtedy nie opieraj się na własnych uczuciach.
-
-Wróć do decyzji.
-
-Powiedz:
-
-„Jezu, zawierzyłem Ci siebie. Nawet jeśli dzisiaj niczego nie czuję, nadal chcę należeć do Ciebie.”
-
-Tak dojrzewa świętość.
-
-Nie przez jednorazowy zachwyt.
-
-Przez wierne powracanie.
-
-Serce Jezusa, które jest rozkoszą wszystkich Świętych, chce także stać się centrum Twojego życia.
-
-Nie po to, aby odebrać Ci ludzkie radości.
-
-Przeciwnie — aby nauczyć Cię przeżywać je właściwie.
-
-Kochać ludzi, nie czyniąc z nich bożków.
-
-Cieszyć się światem, pamiętając, że nie jest on jeszcze domem ostatecznym.
-
-Przyjmować dobre chwile z wdzięcznością, a trudne przeżywać z nadzieją.
-
-Wszystko może prowadzić do Jezusa, gdy serce naprawdę należy do Niego.
-
-Dzisiaj kończy się trzydziesty trzeci dzień.
-
-Ale pragnienie, które budził w Tobie Jezus, nie powinno się kończyć.
-
-Pozwól, aby stało się ono modlitwą całego życia:
-
-„Jezu, niech moje serce nie spocznie, dopóki nie spocznie na zawsze w Twoim Sercu.”
-
-❤️ Serce w codzienności
-Pewna starsza kobieta przez wiele lat codziennie rano modliła się przed niewielkim obrazem Najświętszego Serca Jezusa.
-
-Jej życie nie było łatwe.
-
-Przeżyła wojnę.
-
-Śmierć męża.
-
-Chorobę dziecka.
-
-Lata samotności.
-
-Kiedy ktoś zapytał ją, jak mimo tego wszystkiego zachowała pogodę ducha, wskazała na obraz i odpowiedziała:
-
-– Nie zawsze byłam pogodna. Czasem płakałam, czasem się buntowałam, czasem nie umiałam się modlić. Ale zawsze wiedziałam, dokąd wrócić.
-
-Pod koniec życia, kiedy nie miała już siły odmawiać długich modlitw, powtarzała tylko:
-
-„Jezu, jestem Twoja.”
-
-To wystarczało.
-
-Nie dlatego, że jej życie było bezbłędne.
-
-Dlatego, że wiedziała, do kogo należy.
-
-❤️ Pytania do serca
-Czy Jezus jest naprawdę największym pragnieniem mojego serca?
-Co zmieniło się we mnie podczas tych trzydziestu trzech dni?
-Które wezwanie Litanii najbardziej dotknęło mojego życia?
-Co nadal boję się całkowicie zawierzyć Jezusowi?
-Czy jestem gotowy należeć do Niego także wtedy, gdy nie będę odczuwał pocieszenia?
-Jak chcę pielęgnować więź z Sercem Jezusa po zakończeniu tych rekolekcji?
-Czy wierzę, że świętość i wieczna radość są również dla mnie?
-✨ Myśl dnia
-Zawierzenie nie kończy mojej drogi. Ono rozpoczyna życie przeżywane w świadomości, że należę do Serca Jezusa.
-
-🌿 Droga serca
-Znajdź dziś dłuższą chwilę ciszy.
-
-Wróć pamięcią do całych trzydziestu trzech dni.
-
-Przypomnij sobie słowa, pytania i decyzje, które najbardziej Cię poruszyły.
-
-Podziękuj Jezusowi za wszystko, co pozwolił Ci zobaczyć.
-
-Nie skupiaj się na tym, czego nie wykonałeś doskonale.
-
-Spójrz na drogę, którą przeszedłeś.
-
-Następnie przygotuj swoje serce do Wielkiego Zawierzenia.
-
-Możesz zapisać na kartce jedną rzecz, którą najtrudniej jest Ci oddać Jezusowi.
-
-Połóż ją przed Jego obrazem lub krzyżem i powiedz:
-
-„Jezu, nie chcę pozostawić dla siebie żadnej zamkniętej przestrzeni. Przyjmij całe moje życie.”
-
-🙏 Modlitwa
-Jezu,
-
-Twoje Serce jest rozkoszą wszystkich Świętych.
-
-Dziękuję Ci za trzydzieści trzy dni tej drogi.
-
-Za każde słowo, które mnie umocniło.
-
-Za prawdę, która mnie zabolała.
-
-Za pocieszenie.
-
-Za wezwanie do przemiany.
-
-Za wszystkie chwile, w których pozwoliłeś mi zbliżyć się do Twojego Serca.
-
-Przebacz mi moje rozproszenia, niewierności i chwile zniechęcenia.
-
-Dziękuję, że mimo nich nie przestałeś mnie prowadzić.
-
-Rozpal we mnie pragnienie świętości.
-
-Nie pozwól mi zadowolić się życiem daleko od Ciebie.
-
-Niech Twoja obecność stanie się moją największą radością.
-
-Prowadź mnie przez codzienność, cierpienie i śmierć do pełni życia w domu Ojca.
-
-Spraw, abym razem ze wszystkimi Świętymi mógł kiedyś na zawsze radować się Twoją miłością.
-
-Amen.
-
-🤍 Akt zawierzenia
-Jezu, Serce będące rozkoszą wszystkich Świętych, staję dziś przed Tobą u kresu tej trzydziestotrzydniowej drogi. Oddaję Ci wszystko, czym jestem: moje ciało i duszę, rozum i wolę, przeszłość, teraźniejszość i przyszłość, moje radości, cierpienia, relacje, pracę, powołanie i całą wieczność.
-
-Przyjmij także to, czego nadal nie potrafię wypowiedzieć i czego boję się Tobie oddać. Nie chcę należeć do Ciebie tylko częściowo. Pragnę, aby całe moje życie stało się odpowiedzią na miłość Twojego Najświętszego Serca.
-
-Prowadź mnie drogą świętości. Podnoś mnie, gdy upadam. Przywołuj, gdy odchodzę. Umacniaj, gdy słabnę. A kiedy zakończy się moja ziemska droga, przyjmij mnie do swojego Serca, abym wraz ze wszystkimi Świętymi na wieki wielbił Ciebie w domu Ojca.
-
-Jezu, jestem Twój. Jezu, ufam Tobie. Jezu, w Twoim Sercu pragnę żyć i umierać. Amen.
-
-🌱 Moja decyzja na dziś
-Dziś świadomie zakończę trzydziestotrzydniowe przygotowanie i podejmę decyzję, że zawierzenie nie będzie jedynie jednorazowym aktem, lecz codziennym stylem mojego życia.
-
-✍️ Moje spotkanie z Sercem Jezusa
-Co podczas całych rekolekcji najbardziej przemieniło moje serce?
-
-............................................................................
-
-Co najtrudniej jest mi całkowicie zawierzyć Jezusowi?
-
-............................................................................
-
-Jak chcę żyć od dnia Wielkiego Zawierzenia?
-
-............................................................................"
-    };
 
     function getTodayCardId() {
         const now = new Date();
@@ -478,8 +104,6 @@ Jak chcę żyć od dnia Wielkiego Zawierzenia?
         }
 
         const imgSrc = `${data.fileNum}.jpeg`;
-        const tekstDnia = tekstyRozwazan[data.fileNum];
-        const sekcjaTekstu = (tekstDnia && tekstDnia.trim() !== "") ? `<div class="day-text">${tekstDnia}</div>` : '';
 
         card.innerHTML = `
             <div class="day-header">
@@ -490,8 +114,7 @@ Jak chcę żyć od dnia Wielkiego Zawierzenia?
             
             <img src="${imgSrc}" alt="${data.title}" loading="lazy" onerror="if(this.src.endsWith('.jpeg')) this.src='${data.fileNum}.jpg';">
             
-            ${sekcjaTekstu}
-            
+            <!-- Przywrócony otwarty odtwarzacz - przeglądarka sama dekoduje strumień plików z WhatsApp -->
             <audio controls preload="none">
                 <source src="${data.fileNum}.m4a">
                 <source src="${data.fileNum}.mp4">
@@ -504,6 +127,7 @@ Jak chcę żyć od dnia Wielkiego Zawierzenia?
         `;
         grid.appendChild(card);
         
+        // Zabezpieczenie pobierania: jeśli pliki audio na GitHubie mają końcówki .mp4, przycisk automatycznie przestawi link pod pobieranie .mp4
         const audioTag = card.querySelector('audio');
         const dlBtn = card.querySelector(`#audio-dl-${data.fileNum}`);
         
@@ -527,3 +151,5 @@ Jak chcę żyć od dnia Wielkiego Zawierzenia?
     }
 </script>
 
+</body>
+</html>
